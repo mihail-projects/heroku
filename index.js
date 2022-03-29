@@ -2,7 +2,7 @@ import express from 'express'
 const app = express()
 
 app.get('/', (req, res) => {
-    res.send('sucky sucky 20 bucky?')
+    res.send('sucky sucky 30 bucky?')
 })
 
 app.listen(process.env.PORT, () => {
