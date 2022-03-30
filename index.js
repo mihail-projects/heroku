@@ -1,37 +1,18 @@
 import express from 'express'
-import axios from 'axios'
+import { MongoClient, ServerApiVersion } from 'mongodb'
 
 const app = express()
 
 app.get('/', (req, res) => {
 
-    var data = JSON.stringify({
-        "collection": "collection",
-        "database": "database",
-        "dataSource": "Cluster0",
-        "projection": {
-            "_id": 1
-        }
+    const uri = "mongodb+srv://mihalisp:s4l4m4ndr4@cluster0.pdytk.mongodb.net/database?retryWrites=true&w=majority";
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+    client.connect(err => {
+        const collection = client.db("database").collection("collection");
+        res.send(collection.count)
+        client.close();
     });
-
-    var config = {
-        method: 'post',
-        url: 'https://data.mongodb-api.com/app/data-vlnfz/endpoint/data/beta/action/findOne',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Request-Headers': '*',
-            'api-key': 'Nm52Pf1FE2JPMpyfdO4HL4nMPWSp6BDbSdbWv8Kdg6wuOqSokthyDuqyDKB2jjYG'
-        },
-        data: data
-    };
-
-    axios(config)
-        .then(function (response) {
-            res.send(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            res.send(error);
-        });
 
 })
 
