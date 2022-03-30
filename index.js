@@ -8,9 +8,9 @@ app.get('/', (req, res) => {
     const uri = "mongodb+srv://mihalisp:s4l4m4ndr4@cluster0.pdytk.mongodb.net/database?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-    client.connect(err => {
+    client.connect(async err => {
         const collection = client.db("database").collection("collection");
-        res.send(collection.estimatedDocumentCount())
+        res.send(await collection.estimatedDocumentCount())
         client.close();
     });
 
