@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
     client.connect(async err => {
+        console.log(err)
         const collection = client.db("database").collection("collection");
         res.send(await collection.estimatedDocumentCount())
         client.close();
