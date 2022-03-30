@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
 
     client.connect(async err => {
         const collection = client.db("database").collection("collection");
+        console.log(await collection.estimatedDocumentCount())
         res.send(await collection.estimatedDocumentCount())
         client.close();
     });
