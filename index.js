@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
     client.connect(async err => {
         await collection.estimatedDocumentCount().then(count => {
-            res.send(count)
+            res.send(count.toString())
             client.close();
         })
     });
