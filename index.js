@@ -7,11 +7,11 @@ app.get('/', (req, res) => {
 
     const uri = "mongodb+srv://mihalisp:s4l4m4ndr4@cluster0.pdytk.mongodb.net/database?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    const collection = client.db("database").collection("collection");
 
     client.connect(async err => {
-        const collection = client.db("database").collection("collection");
-        console.log(await collection.estimatedDocumentCount())
-        res.send(await collection.estimatedDocumentCount())
+        const count = await collection.estimatedDocumentCount()
+        res.send(count)
         client.close();
     });
 
